@@ -2,243 +2,297 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>Yağmur'a Özel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yağmur'a Özel Romantik Site</title>
   <style>
-    html, body {
-      margin: 0; padding: 0; overflow: hidden;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom right, #ffc0cb, #ffe4e1);
-      height: 100vh; position: relative;
+    body {
+      margin: 0; padding: 0;
+      background: pink;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      text-align: center;
+      position: relative;
+      height: 100vh;
     }
     h1 {
-      color: #d81b60; font-size: 60px;
-      text-align: center; margin-top: 60px;
-      animation: fadeIn 3s ease-in-out;
+      margin-top: 60px;
+      font-size: 3em;
+      text-shadow: 2px 2px 8px #ff69b4;
     }
-    .message {
-      position: absolute; bottom: 30px; width: 100%;
-      text-align: center; font-size: 24px;
-      color: #880e4f;
-      animation: fadeIn 5s ease-in-out;
+    .kalp {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: kalpUcus 8s linear infinite;
+      opacity: 0.8;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .kalp::before,
+    .kalp::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
     }
-    .hearts {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none; z-index: 2;
+    .kalp::before {
+      top: -10px;
+      left: 0;
     }
-    .heart {
-      position: absolute; color: #e91e63;
-      font-size: 24px;
-      animation: float 6s linear infinite;
+    .kalp::after {
+      left: -10px;
+      top: 0;
     }
-    @keyframes float {
-      0% { transform: translateY(100vh) scale(1); opacity: 1; }
-      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    @keyframes kalpUcus {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
     }
-    .rain {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-image: url('https://i.ibb.co/Mspv0Ky/rain-effect.gif');
-      background-size: cover;
-      opacity: 0.3; z-index: 1;
-      pointer-events: none;
+    .yazi {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      font-size: 1.5em;
+      color: #fff;
+      animation: kayanYazi 25s linear infinite;
+      white-space: nowrap;
     }
-    .menu-toggle {
+    @keyframes kayanYazi {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    canvas {
       position: fixed;
-      top: 20px; right: 20px;
-      z-index: 10;
-      background-color: #d81b60;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    nav {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      z-index: 9999;
+    }
+    .menu-btn {
+      background: #ff69b4;
+      border: none;
       color: white;
-      padding: 10px 20px;
-      border-radius: 10px;
+      padding: 10px 15px;
+      font-size: 18px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
       user-select: none;
     }
-    .menu {
-      position: fixed;
-      top: 0; right: -320px;
-      width: 300px; height: 100%;
-      background-color: #fff0f5;
-      box-shadow: -2px 0 5px rgba(0,0,0,0.2);
-      padding: 20px;
-      overflow-y: auto;
-      transition: right 0.4s ease;
-      z-index: 9;
-      font-size: 15px;
-      color: #880e4f;
-    }
-    .menu.open {
+    .menu-content {
+      display: none;
+      background: #fff0f5;
+      position: absolute;
       right: 0;
+      top: 50px;
+      min-width: 180px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      color: #000;
+      max-height: 70vh;
+      overflow-y: auto;
+      z-index: 10000;
     }
-    .menu h2 {
-      color: #d81b60;
+    .menu-content a {
+      color: #000;
+      padding: 12px 18px;
+      display: block;
+      text-decoration: none;
+      border-bottom: 1px solid #ffb6c1;
+      cursor: pointer;
+      user-select: none;
+    }
+    .menu-content a:hover {
+      background: #ffe4e1;
+    }
+    .siirler {
+      display: none;
+      padding: 40px 30px;
+      max-height: 75vh;
+      overflow-y: scroll;
+      text-align: left;
+      background: #fff0f5;
+      color: #000;
+      margin: 20px auto;
+      border-radius: 20px;
+      width: 90%;
+      box-shadow: 0 0 20px rgba(255,105,180,0.4);
+      z-index: 9999;
+      position: relative;
+    }
+    .siirler h2 {
       text-align: center;
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 22px;
+      color: #d63384;
+      margin-bottom: 25px;
+      user-select: none;
     }
-    .menu p {
-      margin-bottom: 12px;
-      line-height: 1.4;
+    .siirler p {
+      margin-bottom: 18px;
+      line-height: 1.6;
+      user-select: text;
     }
   </style>
 </head>
 <body>
-  <div class="rain"></div>
-  <div class="hearts" id="hearts"></div>
+  <nav>
+    <button class="menu-btn" onclick="toggleMenu()">☰ Menü</button>
+    <div class="menu-content" id="menu">
+      <a onclick="showSiirler()">Aşk Şiirleri</a>
+    </div>
+  </nav>
 
-  <div class="menu-toggle" onclick="toggleMenu()">Aşk Şiirleri</div>
-  <div class="menu" id="sideMenu">
-    <h2>Aşk Şiirleri</h2>
-    <p>1. Seninle başlar her yeni günüm Yağmur...</p>
-    <p>2. Gözlerin gecemin en parlak yıldızı.</p>
-    <p>3. Kalbimin ritmi, adını fısıldar her atışta.</p>
-    <p>4. Yağmur gibi serin, sevdan gibi sıcak...</p>
-    <p>5. Sensiz geçen zaman, anlamsız bir masal gibi.</p>
-    <p>6. Sana dokunmak, baharı avuçlamak gibi.</p>
-    <p>7. Gülüşünle uyanmak cennete uyanmak gibi.</p>
-    <p>8. Kalbimdeki her boşluğu seninle doldurdum.</p>
-    <p>9. Seni düşünmek bile yetiyor içimi ısıtmaya.</p>
-    <p>10. Yağmur, isminin geçtiği her dizeye anlam katıyor.</p>
-    <p>11. Aşk senin adınla başlar benim lügatımda.</p>
-    <p>12. Senle başlar, senle biter dualarım.</p>
-    <p>13. Her damla yağmur, seni anlatıyor bana.</p>
-    <p>14. Sensiz hayat, eksik kalan bir şarkı gibi.</p>
-    <p>15. Sevgin kalbimde yazılı bir şiir gibi.</p>
-    <p>16. Adınla uyanmak, en güzel sabahım.</p>
-    <p>17. Gözlerin yıldız, gülüşün ay ışığı.</p>
-    <p>18. Seninle dolu her saniye, hayatımın anlamı.</p>
-    <p>19. Aşkımız, rüzgarla dans eden yaprak gibi.</p>
-    <p>20. Kalbim sadece seninle tamam.</p>
-    <p>21. Yağmur damlaları gibi temiz sevgin.</p>
-    <p>22. Gözlerine baktıkça eriyorum.</p>
-    <p>23. Her gece seni düşlüyorum.</p>
-    <p>24. Ellerini tutmak cennetin bir parçası.</p>
-    <p>25. Seninle her şey mümkün.</p>
-    <p>26. Ruhumun en derin köşesinde sen varsın.</p>
-    <p>27. Kalbim seninle atıyor her an.</p>
-    <p>28. Sensiz geçen günler anlamsız.</p>
-    <p>29. Senin sevginle büyüdüm ben.</p>
-    <p>30. Aşkın beni sarhoş etti.</p>
-    <p>31. Gözlerinle hayat buluyorum.</p>
-    <p>32. Seninle hayat güzel.</p>
-    <p>33. Kalbimde açan tek çiçek sensin.</p>
-    <p>34. Sen benim hayatımın şarkısısın.</p>
-    <p>35. Yağmurun sesinde adını duyuyorum.</p>
-    <p>36. Seninle her an bir masal.</p>
-    <p>37. Gözlerin içimi ısıtıyor.</p>
-    <p>38. Aşkın sıcaklığıyla yanıyorum.</p>
-    <p>39. Kalbim hep senin için atıyor.</p>
-    <p>40. Sen benim dünyamın anlamısın.</p>
-    <p>41. Sensiz hayatım eksik bir şiir.</p>
-    <p>42. Seninle her şey daha güzel.</p>
-    <p>43. Sevgin bana hayat veriyor.</p>
-    <p>44. Gözlerinle kayboldum.</p>
-    <p>45. Seninle hayatın tadı başka.</p>
-    <p>46. Kalbim seninle tamamlandı.</p>
-    <p>47. Aşkımız sonsuz bir hikaye.</p>
-    <p>48. Sen benim en güzel düşümsün.</p>
-    <p>49. Yağmur gibi serinleten sevgin.</p>
-    <p>50. Gülüşün kalbimi ısıtıyor.</p>
-    <p>51. Seninle geçen her an kıymetli.</p>
-    <p>52. Sensiz hayatım boş ve anlamsız.</p>
-    <p>53. Sen benim hayatımın anlamı.</p>
-    <p>54. Kalbim seninle huzur buluyor.</p>
-    <p>55. Sen benim en değerli hazinemsin.</p>
-    <p>56. Aşkınla doluyum her an.</p>
-    <p>57. Seninle hayatım renkleniyor.</p>
-    <p>58. Gözlerin bana umut veriyor.</p>
-    <p>59. Sen benim her şeyimsin.</p>
-    <p>60. Kalbim seninle mutlu.</p>
-    <p>61. Aşkımız zamana meydan okuyor.</p>
-    <p>62. Sen benim en güzel şarkımsın.</p>
-    <p>63. Yağmur gibi temiz ve saf sevgin.</p>
-    <p>64. Gözlerin kalbime dokunuyor.</p>
-    <p>65. Seninle hayat anlam kazanıyor.</p>
-    <p>66. Kalbim seninle dolup taşıyor.</p>
-    <p>67. Sensiz hayatım eksik ve solgun.</p>
-    <p>68. Sen benim sonsuz aşkımsın.</p>
-    <p>69. Aşkımız her gün büyüyor.</p>
-    <p>70. Seninle her şey mümkün.</p>
-    <p>71. Gözlerin bana ışık oluyor.</p>
-    <p>72. Kalbim seninle huzur dolu.</p>
-    <p>73. Sen benim hayatımın anlamısın.</p>
-    <p>74. Yağmur gibi serin ve ferahlatıcı sevgin.</p>
-    <p>75. Gülüşün kalbimi ısıtıyor.</p>
-    <p>76. Seninle her an özel ve değerli.</p>
-    <p>77. Kalbim seninle mutluluk dolu.</p>
-    <p>78. Aşkımız sonsuza dek sürecek.</p>
-    <p>79. Sen benim en güzel düşümsün.</p>
-    <p>80. Yağmur gibi temiz ve saf sevgin.</p>
-    <p>81. Gözlerin bana umut ve güç veriyor.</p>
-    <p>82. Seninle hayatım daha anlamlı.</p>
-    <p>83. Kalbim seninle dolu ve mutlu.</p>
-    <p>84. Sensiz hayatım eksik ve anlamsız.</p>
-    <p>85. Sen benim en değerli hazinemsin.</p>
-    <p>86. Aşkınla her gün yeniden doğuyorum.</p>
-    <p>87. Seninle hayatım renkleniyor ve güzelleşiyor.</p>
-    <p>88. Gözlerin kalbime huzur veriyor.</p>
-    <p>89. Sen benim her şeyimsin ve sonsuz aşkımsın.</p>
-    <p>90. Kalbim seninle mutlu ve huzurlu.</p>
-    <p>91. Aşkımız zamana meydan okuyor ve büyüyor.</p>
-    <p>92. Sen benim en güzel şarkımsın ve şiirimsin.</p>
-    <p>93. Yağmur gibi temiz, serin ve saf sevgin.</p>
-    <p>94. Gözlerin kalbime dokunuyor ve ısınıyor.</p>
-    <p>95. Seninle hayatım anlam kazanıyor ve parlıyor.</p>
-    <p>96. Kalbim seninle dolup taşıyor ve sevgiyle yanıyor.</p>
-    <p>97. Sensiz hayatım eksik, solgun ve anlamsız.</p>
-    <p>98. Sen benim sonsuz aşkımsın ve hayatımsın.</p>
-    <p>99. Aşkımız her gün büyüyor ve güçleniyor.</p>
-    <p>100. Seninle her şey mümkün ve güzelleşiyor.</p>
+  <h1>Yağmur, seni çok seviyorum 💖</h1>
+  <div class="yazi">Aşk bir damla yağmur gibidir... Sessizce gelir ve kalbe işler... 💕</div>
+
+  <canvas id="rainCanvas"></canvas>
+
+  <div class="siirler" id="siirler">
+    <h2>💘 Aşk Şiirleri 💘</h2>
+    <div id="siir-listesi"></div>
   </div>
 
-  <h1>YAĞMUR ❤</h1>
-  <div class="message" id="msg"></div>
-
   <audio autoplay loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3" />
+    Tarayıcınız audio elementini desteklemiyor.
   </audio>
 
   <script>
-    const hearts = document.getElementById("hearts");
-    const messages = [
-      "Seninle her gün bir başka güzel...",
-      "Kalbim sadece senin için atıyor Yağmur ❤",
-      "Gözlerin bulut, gülüşün güneş gibi.",
-      "Sana her baktığımda içim ısınıyor...",
-      "Sen benim en değerli yağmurumsun..."
+    // Hamburger Menü
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+    // Şiirler Bölümü Göster/Gizle
+    function showSiirler() {
+      const siirler = document.getElementById('siirler');
+      siirler.style.display = siirler.style.display === 'block' ? 'none' : 'block';
+      document.getElementById('menu').style.display = 'none';
+    }
+
+    // 100 farklı aşk şiiri
+    const siirler = [
+      "Seninle başlar her güzel günüm,<br>Adını andıkça güler yüzüm.",
+      "Kalbim atıyor seninle ritim tutar,<br>Yağmur gibi huzur, seninle dolar.",
+      "Gözlerin ufkumda bir güneş gibi,<br>Sensiz geçen zaman hep eksik gibi.",
+      "Aşk bir melodi, seninle tamam,<br>Kalbimde senin adınla çalar tam.",
+      "Yağmurun her damlası gibi seviyorum seni,<br>Kalbim sana ait, buna inan beni.",
+      "Sensiz geçen günler anlamsız ve boş,<br>Seninle hayat bulur her bir köş.",
+      "Rüzgar eser teninde, sevdam sana dönük,<br>Kalbim seninle dolu, hep sana dönük.",
+      "Geceler uzun sensiz, hayalin hep yanımda,<br>Sen benim en güzel düşümsün, hep yanı başımda.",
+      "Bir gülüşün yeter bana, dünyalar benim olur,<br>Seninle her şey güzel, aşkın özü olur.",
+      "Kalbimin sesi sensin, her atışta adın var,<br>Yağmurun altında yürürken, ellerin ellerimle sarar.",
+      "Sensiz hayat eksik, seninle tamam,<br>Yağmurda ıslanırken bile kalbim sana katlanır.",
+      "Aşkın rengi pembedir, seninle tamamlanır,<br>Kalbimde açan çiçekler, hep sana bağlanır.",
+      "Seninle her an bir şiir, her söz bir melodi,<br>Yağmurun dansı gibi, kalbim seninle uyumlu.",
+      "Adınla başlar sabahlar, seninle dolar hayat,<br>Yağmur damlaları gibi, sevgimiz hep taze kalır.",
+      "Gözlerin yıldızlar kadar parlak ve güzel,<br>Seninle hayatım anlam bulur, sen benim her şeyim, güzel.",
+      "Sevdan içimde bir ateş, sönmeyen bir kor,<br>Yağmur gibi temiz, kalbimde en saf aşkın doruğu.",
+      "Seninle geçer zaman, hayat daha anlamlı,<br>Yağmurun sesi gibi huzurlu, seninle hayatım tamamlanır.",
+      "Birlikte yazdığımız hikaye, aşkın en güzel destanı,<br>Kalbimde sen varsın, her an, her saniye, aşkın adı.",
+      "Gözlerin kalbime açılan en güzel pencere,<br>Seninle hayat daha renkli, aşkımız hiç bitmeyecekse.",
+      "Seni düşünmek bile mutluluk, hayatın en güzel armağanı,<br>Yağmur altında el ele, sonsuza dek sürecek bu sevda anı.",
+      "Kalbim sana ait, her atışı seninle dolu,<br>Yağmurun altında yürürken, sevdamız hep sonsuz oldu.",
+      "Seninle başlayan masal, hiç bitmesin istiyorum,<br>Her damla yağmurda seni, bir kez daha seviyorum.",
+      "Sevgiyle dolu kalbim, sadece senin için atar,<br>Yağmurun her damlası gibi, aşkımız hep parlar.",
+      "Gözlerin bir umut ışığı, karanlıkta yol gösterir,<br>Seninle hayat daha güzel, aşkınla kalbim çarpar.",
+      "Birlikte yürüdüğümüz yolda, sonsuza dek el ele,<br>Yağmurun sesi eşlik eder, aşkımızın en güzel şarkısıyla.",
+      "Sen benim en değerlim, kalbimin en güzel sesi,<br>Yağmur gibi temiz, sevdamız hiç eksilmez, hep büyür.",
+      "Gecenin sessizliğinde, adını fısıldarım rüzgara,<br>Sen benim hayatımın anlamı, kalbimdeki tek aşka.",
+      "Yağmurun altında seninle, zaman durur adeta,<br>Her anımız bir şiir, aşkımızın en güzel nota.",
+      "Kalbim seninle dolu, sensiz hayat anlamsız,<br>Yağmur gibi saf ve temiz, aşkımız hep sonsuz.",
+      "Seninle yaşamak bir rüya, her gün ayrı güzel,<br>Yağmurun serinliğinde, sevdamız hep özel.",
+      "Adınla başlar sabahlar, seninle biter akşamlar,<br>Kalbim hep sana ait, aşkımız hiç bitmez asla.",
+      "Gözlerin deniz kadar derin, içinde kaybolurum,<br>Yağmur damlaları gibi, aşkımız hep coşar, durur.",
+      "Seninle her an bir cennet, her dakika mutluluk,<br>Yağmurun serinliği gibi, sevgin bana huzur olur.",
+      "Kalbim seninle atar, her ritmi senin melodin,<br>Yağmur altında el ele, sonsuza dek seninle olmanın sevincin.",
+      "Seninle geçen zaman, hayatın en güzel armağanı,<br>Yağmur gibi duru, aşkımız hep kalır anılarımızda.",
+      "Bir gülüşün yeter bana, karanlığı aydınlatır,<br>Seninle her şey mümkün, aşkımız hiç solmaz, yaşar.",
+      "Kalbimin en derininde, sadece sen varsın,<br>Yağmurun sesi gibi, aşkımız hep sonsuza akar.",
+      "Seni sevmek bir mucize, her anı özel kılar,<br>Yağmur damlaları gibi, kalbimi sevgiyle kaplar.",
+      "Seninle hayat renklenir, her gün yeni bir başlangıç,<br>Yağmur gibi serin, aşkımız hep taze kalır.",
+      "Gözlerin kalbimde bir ateş, yanar durmadan,<br>Seninle her an mutluyum, sevginle dolup taşarım.",
+      "Kalbim seninle huzur bulur, sensiz hayat boş olur,<br>Yağmurun altında yürürken, aşkımız hep sonsuz olur.",
+      "Sen benim en güzel düşüm, hayatımın anlamı,<br>Yağmur gibi temiz, sevginle dolup taşarım anbean.",
+      "Birlikte yazdığımız şiir, kalbimizin ortak dili,<br>Yağmur damlaları gibi, aşkımız hep saf ve temiz.",
+      "Seninle her an özel, hayat bir masal gibi,<br>Yağmurun sesi eşlik eder, sevdamız hiç bitmez, baki.",
+      "Kalbim seninle dolu, her atışta sen varsın,<br>Yağmur altında el ele, sonsuza dek seninle varız.",
+      "Seninle geçen zaman, hayatın en güzel armağanı,<br>Yağmur gibi duru, aşkımız hep kalır anılarımızda.",
+      "Seni düşünmek bile mutluluk, kalbimde en güzel his,<br>Yağmur damlaları gibi, sevginle dolu her bir gün.",
+      "Gözlerin ufkumda parlayan en güzel yıldız,<br>Seninle hayat daha renkli, aşkımız hiç solmaz asla.",
+      "Seninle her şey anlamlı, her an ayrı değerli,<br>Yağmur gibi serin, sevginle dolup taşarım gizlice.",
+      "Kalbim seninle atar, her ritmi senin melodin,<br>Yağmur altında yürürken, aşkımız hep sonsuz bir şarkı.",
+      "Seninle yaşamak bir rüya, gerçek olan en güzel şey,<br>Yağmurun serinliği gibi, sevgin bana huzur verir.",
+      "Birlikte geçirdiğimiz anlar, kalbimde ölümsüzleşir,<br>Yağmur damlaları gibi, sevdamız hep taze kalır.",
+      "Seninle her an bir şiir, her söz bir melodi,<br>Yağmurun dansı gibi, kalbim seninle uyumlu.",
+      "Kalbimin sesi sensin, her atışta adın var,<br>Yağmurun altında yürürken, ellerin ellerimle sarar.",
+      "Seni sevmek bir ömür boyu sürecek masal,<br>Yağmur damlaları gibi, kalbimizde aşk hep var.",
+      "Seninle başlar her güzel gün, her yeni sabah,<br>Kalbim seninle dolu, seninle hayat şahane.",
+      "Gözlerin denizler kadar derin, içinde kaybolurum,<br>Yağmur damlaları gibi, aşkımız hep coşar durur."
     ];
 
-    let msgIndex = 0;
-    function rotateMessages() {
-      document.getElementById("msg").innerText = messages[msgIndex];
-      msgIndex = (msgIndex + 1) % messages.length;
-    }
-    setInterval(rotateMessages, 4000);
-    rotateMessages();
+    const siirListesi = document.getElementById('siir-listesi');
+    siirler.forEach((siir, i) => {
+      const p = document.createElement('p');
+      p.innerHTML = `${i + 1}. ${siir}`;
+      siirListesi.appendChild(p);
+    });
 
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerText = "❤";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = (Math.random() * 20 + 20) + "px";
-      hearts.appendChild(heart);
-      setTimeout(() => {
-        heart.remove();
-      }, 6000);
-    }
-    setInterval(createHeart, 300);
+    // Yağmur efekti canvas
+    const canvas = document.getElementById("rainCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    function toggleMenu() {
-      const menu = document.getElementById("sideMenu");
-      menu.classList.toggle("open");
+    const drops = [];
+    for (let i = 0; i < 300; i++) {
+      drops.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        l: Math.random() * 1.5,
+        xs: -4 + Math.random() * 4 + 2,
+        ys: Math.random() * 10 + 10
+      });
     }
+
+    function drawRain() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = "rgba(174,194,224,0.5)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let i = 0; i < drops.length; i++) {
+        let d = drops[i];
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x + d.l * d.xs, d.y + d.l * d.ys);
+      }
+      ctx.stroke();
+      moveRain();
+    }
+
+    function moveRain() {
+      for (let i = 0; i < drops.length; i++) {
+        let d = drops[i];
+        d.x += d.xs;
+        d.y += d.ys;
+        if (d.x > canvas.width || d.y > canvas.height) {
+          d.x = Math.random() * canvas.width;
+          d.y = -20;
+        }
+      }
+    }
+
+    setInterval(drawRain, 30);
   </script>
 </body>
 </html>
